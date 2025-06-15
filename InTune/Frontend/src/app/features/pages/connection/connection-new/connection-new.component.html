@@ -1,0 +1,71 @@
+<div [formGroup]="connectionForm" class="max-w-lg mx-auto bg-white p-8 rounded-xl shadow">
+  <h2 class="text-2xl font-bold text-pink-500 mb-6">Crear un espacio especial</h2>
+
+  <label class="block text-lg text-left mb-2 font-medium">¿Quién es esta persona para ti?</label>
+  <div class="grid grid-cols-3 gap-4 mb-6">
+    <div 
+      *ngFor="let option of relationshipOptions"
+      (click)="selectType(option.value)"
+      [ngClass]="{
+        'bg-pink-100 border border-pink-400': selectedType === option.value,
+        'bg-pink-50': selectedType !== option.value
+      }"
+      class="cursor-pointer p-4 rounded-xl text-center hover:bg-pink-200 transition-all"
+    >
+      <div class="text-3xl">{{ option.emoji }}</div>
+      <div class="text-pink-600 font-medium mt-1">{{ option.label }}</div>
+    </div>
+  </div>
+
+  <div class="mb-6">
+    <label class="block text-lg text-left font-medium mb-2">Personaliza este espacio</label>
+    <input
+      type="text"
+      formControlName="name"
+      placeholder="Nombre de la página (ej: 'Para ti, mamá')"
+      class="w-full p-3 border rounded-xl border-pink-300 placeholder-pink-300"
+    />
+    @if (connectionForm.get('name')?.touched && connectionForm.get('name')?.invalid) {
+      <div class="text-red-600 text-sm mt-1 ml-1">
+        @if (connectionForm.get('name')?.errors?.['required']) {
+          <div>* El nombre del espacio es requerido</div>
+        }
+      </div>
+    }
+  </div>
+
+  <div class="mb-6">
+    <label class="block text-lg text-left font-medium mb-2">Correo electrónico</label>
+    <input 
+      type="email"
+      formControlName="email"
+      placeholder="ejemplo@email.com"
+      class="w-full p-3 border rounded-xl border-pink-300 placeholder-pink-300"
+    />
+    @if (connectionForm.get('email')?.touched && connectionForm.get('email')?.invalid) {
+      <div class="text-red-600 text-sm mt-1 ml-1">
+        @if (connectionForm.get('email')?.errors?.['required']) {
+          <div>* El correo es requerido</div>
+        }
+        @if (connectionForm.get('email')?.errors?.['email']) {
+          <div>* Formato de correo inválido</div>
+        }
+      </div>
+    }
+  </div>
+
+  @if (formError && formError.length > 0) {
+    <div class="bg-pink-100 border border-pink-400 text-pink-700 px-4 py-3 rounded-xl mb-4 shadow-md">
+      <ul class="list-disc list-inside space-y-1">
+        <li *ngFor="let error of formError" class="flex items-start gap-2">
+          <span class="text-pink-600">⚠️</span>
+          <span>{{ error }}</span>
+        </li>
+      </ul>
+    </div>
+  }
+
+  <button 
+    (click)="createConnection()"
+    class="w-full bg-pink-500 text-white py-3 rounded-xl font-semibold hover:bg-pink-600 transition">Crear espacio e invitar</button>
+</div>

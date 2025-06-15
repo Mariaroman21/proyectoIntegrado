@@ -1,0 +1,120 @@
+<div class="min-h-screen py-10 flex items-center justify-center bg-gradient-to-tr from-pink-100 via-white to-pink-100">
+  <div class="bg-white p-6 sm:p-8 md:p-10 rounded-3xl shadow-xl max-w-md w-full">
+    <div class="flex flex-col items-center space-y-4">
+      <img src="assets/logo.png" alt="Logo" class="w-16 h-16" />
+      <h2 class="text-2xl font-bold text-pink-500 text-center">¡Regístrate aquí!</h2>
+    </div>
+    <form [formGroup]="registerForm" (ngSubmit)="registerUser()" class="mt-8 space-y-4">
+      <div>
+        <input id="name" type="text" placeholder="Nombre" formControlName="name"
+               class="w-full p-3 border border-pink-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-400" />
+        @if (registerForm.get('name')?.touched && registerForm.get('name')?.invalid) {
+          <div class="text-red-600 text-sm mt-1 ml-1">
+            @if (registerForm.get('name')?.errors?.['required']) {
+              <div>* Nombre es requerido</div>
+            }
+          </div>
+        }
+      </div>
+
+      <div>
+        <input id="surname" type="text" placeholder="Apellido" formControlName="surname"
+               class="w-full p-3 border border-pink-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-400" />
+        @if (registerForm.get('surname')?.touched && registerForm.get('surname')?.invalid) {
+          <div class="text-red-600 text-sm mt-1 ml-1">
+            @if (registerForm.get('surname')?.errors?.['required']) {
+              <div>* Apellido es requerido</div>
+            }
+          </div>
+        }
+      </div>
+      <div>
+        <input id="lastname" type="text" placeholder="Segundo apellido" formControlName="lastname"
+               class="w-full p-3 border border-pink-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-400" />
+        @if (registerForm.get('lastname')?.touched && registerForm.get('lastname')?.invalid) {
+          <div class="text-red-600 text-sm mt-1 ml-1">
+            @if (registerForm.get('lastname')?.errors?.['required']) {
+              <div>* Segundo apellido es requerido</div>
+            }
+          </div>
+        }
+      </div>
+
+      <div>
+        <input id="birthdate" type="date" formControlName="birthdate"
+               class="w-full p-3 border border-pink-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-400" />
+        @if (registerForm.get('birthdate')?.touched && registerForm.get('birthdate')?.invalid) {
+          <div class="text-red-600 text-sm mt-1 ml-1">
+            @if (registerForm.get('birthdate')?.errors?.['required']) {
+              <div>* Fecha de nacimiento es requerida</div>
+            }
+          </div>
+        }
+      </div>
+      <div>
+        <input id="username" type="text" placeholder="Nombre de usuario" formControlName="username"
+               class="w-full p-3 border border-pink-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-400" />
+        @if (registerForm.get('username')?.touched && registerForm.get('username')?.invalid) {
+          <div class="text-red-600 text-sm mt-1 ml-1">
+            @if (registerForm.get('username')?.errors?.['required']) {
+              <div>* Nombre de usuario es requerido</div>
+            }
+          </div>
+        }
+      </div>
+      <div>
+        <input id="email" type="email" placeholder="Correo electrónico" formControlName="email"
+               class="w-full p-3 border border-pink-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-400" />
+        @if (registerForm.get('email')?.touched && registerForm.get('email')?.invalid) {
+          <div class="text-red-600 text-sm mt-1 ml-1">
+            @if (registerForm.get('email')?.errors?.['required']) {
+              <div>* Correo electrónico es requerido</div>
+            }
+            @if (registerForm.get('email')?.errors?.['email']) {
+              <div>* Formato de correo inválido</div>
+            }
+          </div>
+        }
+      </div>
+
+      <div>
+        <input id="password" type="password" placeholder="Contraseña" formControlName="password"
+               class="w-full p-3 border border-pink-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-400" />
+        @if (registerForm.get('password')?.touched && registerForm.get('password')?.invalid) {
+          <div class="text-red-600 text-sm mt-1 ml-1">
+            @if (registerForm.get('password')?.errors?.['required']) {
+              <div>* Contraseña es requerida</div>
+            }
+            @if (registerForm.get('password')?.errors?.['minlength']) {
+              <div>* Mínimo 6 caracteres</div>
+            }
+          </div>
+        }
+      </div>
+
+      @if (formError && formError.length > 0 ){
+      <div class="bg-pink-100 border border-pink-400 text-pink-700 px-4 py-3 rounded-xl mb-4 shadow-md">
+        <ul class="list-disc list-inside space-y-1">
+          <li *ngFor="let error of formError" class="flex items-start gap-2">
+            <span class="text-pink-600">⚠️</span>
+            <span>{{ error }}</span>
+          </li>
+        </ul>
+      </div>
+    }
+
+      <button type="submit" 
+              class="w-full py-3 rounded-xl text-white font-semibold bg-gradient-to-r from-pink-500 to-orange-400 hover:from-pink-600 hover:to-orange-500">
+        Registrarse
+      </button>
+    
+    </form>
+
+    <div class="text-center mt-4 text-sm">
+      <a routerLink="/auth/login" class="text-pink-500 hover:underline">¿Ya estás registrado?</a>
+      <span class="mx-1 text-gray-400">•</span>
+      <a href="#" class="text-gray-600 hover:underline">Ayuda</a>
+    </div>
+  </div>
+</div>
+
